@@ -1,0 +1,560 @@
+/**************
+ALEX
+*************/
+
+/* font */
+body {
+    font-family: 'Quicksand', sans-serif;
+}
+
+/* general */
+.fittingImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* navbar */
+#navbar {
+    font-weight: 300;
+}
+#navbar > .shoppingCart {
+    display: none;
+}
+#navbar > #navbarNav .shoppingCart {
+    display: block;
+}
+@media only screen and (max-width: 991px) {
+    #navbar > .navbar-brand {
+        margin: auto;
+    }
+    #navbar > .shoppingCart {
+        display: block;
+    }
+    #navbar > #navbarNav .shoppingCart {
+        display: none;
+    }
+}
+#navbar .navbar-brand img {
+    width: auto;
+    height: 30px;
+    margin-bottom: 12px;
+}
+#navbar > .shoppingCart i {
+    position: relative; 
+    top: 1px; 
+    font-size: 1.3rem;
+}
+#navbar > .shoppingCart p {
+    position: relative; 
+    top: 10px;
+}
+#navbar > #navbarNav .shoppingCart i {
+    position: relative; 
+    top: 1px; 
+    font-size: 1.1rem;
+}
+#navbar > #navbarNav .shoppingCart p {
+    position: relative; 
+    top: 7px;
+}
+@media only screen and (max-width: 767px) {
+    #navbar .navbar-brand img {
+        height: 50px;
+        margin-bottom: 18px;
+    }
+    #navbar .navbar-brand span {
+        font-size: 1.5rem;
+    }
+    #navbar > #navbarNav {
+        font-size: 1.33rem;
+    }
+}
+@media only screen and (max-width: 575px) {
+    #navbar .navbar-brand img {
+        height: 9.4vw;
+        margin-bottom: 3.38vw;
+    }
+    #navbar .navbar-brand span {
+        font-size: 4.5vw;
+    }
+    #navbar > #navbarNav {
+        font-size: 4vw;
+    }
+    #navbar > #navbarNav .shoppingCart i {
+        font-size: 3.3vw;
+    }
+}
+
+/* home */
+#homeHero .heroItem {
+    width: 100%; 
+    height: 41vw;
+}
+
+/* product */
+#productHero {
+    width: 100%;
+    height: 31vw;
+}
+#horizontalBar {
+    position: sticky;
+    position: -webkit-sticky; /* Safari */
+    top: 0;
+    z-index: 1;
+    font-size: 1.2rem;
+}
+#horizontalBar > div {
+    padding: 10px 16px 4px 16px;
+}
+#horizontalBar #filterBar {
+    display: inline-block; 
+    vertical-align: top; 
+    width: 159px;
+}
+#horizontalBar #filterBar span:nth-child(4) {
+    float: right;
+    display: none;
+}
+#horizontalBar #filterBar hr {
+    display: none;
+}
+#horizontalBar #criteriaBar {
+    display: inline-block; 
+    height: 1.65rem; 
+    overflow: hidden;
+}
+#horizontalBar #criteriaBar .criterion {
+    height: 1.65rem;
+    font-size: 1rem;
+}
+#horizontalBar #criteriaBar .criterion span:nth-child(2) {
+    cursor: pointer;
+}
+#horizontalBar #criteriaButton {
+    display: inline-block; 
+    vertical-align: top; 
+    width: 63px; 
+    height: 1.65rem; 
+    overflow: hidden;
+}
+#horizontalBar #criteriaButton span {
+    font-size: 1rem; 
+    cursor: pointer;
+}
+#horizontalBar #sortBar {
+    float: right; 
+    vertical-align: top; 
+    text-align: right; 
+    width: 236px;
+}
+#horizontalBar #sort {
+    cursor: pointer;
+}
+@media only screen and (max-width: 767px) {
+    #horizontalBar {
+        font-size: 2rem;
+        font-weight: 500;
+    }
+    #horizontalBar > div {
+        padding: 25px 32px;
+    }
+    #horizontalBar #filterBar {
+        width: 80px;
+        cursor: pointer;
+    }
+    #filterBar span:nth-child(2) {
+        display: none;
+    }
+    #filterBar span:nth-child(3) {
+        display: none;
+    }
+    #horizontalBar #criteriaBar {
+        display: none; 
+    }
+    #horizontalBar #criteriaButton {
+        display: none; 
+    }
+    #horizontalBar #sortBar {
+        width: 384px;
+    }
+}
+@media only screen and (max-width: 575px) {
+    #horizontalBar {
+        position: static;
+        font-size: 6vw;
+    }
+    #horizontalBar #filterBar {
+        display: block;
+        width: 100%;
+    }
+    #horizontalBar #filterBar hr {
+        display: block;
+        margin-top: 30px;
+        margin-bottom: 37px;
+    }
+    #horizontalBar #criteriaBar {
+        display: none; 
+    }
+    #horizontalBar #criteriaButton {
+        display: none; 
+    }
+    #horizontalBar #sortBar {
+        display: block;
+        float: none;
+        text-align: left;
+        margin-bottom: 8px;
+    }
+}
+#verticalBar {
+    flex: 1;
+}
+#verticalBar .sectionHeading {
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+/* checkboxes */
+/* The wrapper */
+#verticalBar .wrapper {
+    display: block;
+    position: relative;
+    padding-left: 25px;
+    margin-bottom: 10px;
+    font-size: 1rem;
+    font-weight: 300;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+/* Hide the browser's default checkbox */
+#verticalBar .wrapper input {
+    opacity: 0;
+    z-index: 1;
+    position: absolute;
+    top: 3px;
+    left: 0;
+    height: 1rem;
+    width: 1rem;
+    cursor: pointer;
+}
+/* Create a custom checkbox */
+#verticalBar .checkmark {
+    position: absolute;
+    top: 3.5px;
+    left: 0;
+    height: 1rem;
+    width: 1rem;
+    border-radius: 2.5px;
+    border: solid grey 0.5px;
+}
+/* On mouse-over, make the border blue */
+#verticalBar .wrapper:hover input ~ .checkmark {
+    border: solid #2196F3 0.5px;
+}
+/* When the checkbox is checked, add a blue background */
+#verticalBar .wrapper input:checked ~ .checkmark {
+    background-color: #2196F3;
+    border: solid #2196F3 0.5px;
+}
+/* Create the checkmark/indicator (hidden when not checked) */
+#verticalBar .checkmark::after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+/* Show the checkmark when checked */
+#verticalBar .wrapper input:checked ~ .checkmark::after {
+    display: block;
+}
+/* Style the checkmark/indicator */
+#verticalBar .wrapper .checkmark::after {
+    left: 5px;
+    top: 0.7px;
+    width: 6px;
+    height: 11px;
+    border: solid white;
+    border-width: 0 2.5px 2.5px 0;
+    -webkit-transform: rotate(38deg);
+    -ms-transform: rotate(38deg);
+    transform: rotate(38deg);
+}
+#verticalBar button {
+    display: none;
+}
+#verticalBar + main {
+    flex: 6;
+}
+#cards {
+    padding: 8px 8px 48px 8px;
+}
+#cards > div {
+    padding: 8px;
+}
+#cards a {
+    text-decoration: none; 
+    color: black;
+}
+#cards a > div {
+    margin: auto; 
+    border-radius: 0.25rem;
+    box-shadow: 0 3px 4px 0 lightgrey;
+}
+#cards .productImageDiv {
+    width: 170px; 
+    height: 205px; 
+    margin: auto;
+}
+#cards .productName, .productNewPrice {
+    font-size: 1.2rem;
+}
+#cards .fullStar {
+    color: rgb(255, 199, 57);
+}
+#cards .emptyStar {
+    color: rgb(186, 186, 186);
+}
+#cards .ratings {
+    font-size: 0.85rem;
+}
+#cards .notRated {
+    visibility: hidden;
+}
+@media only screen and (max-width: 991px) {
+    #verticalBar + main {
+        flex: 4;
+    }  
+}
+@media only screen and (max-width: 767px) {
+    #verticalBar {
+        display: none;
+    }
+    #verticalBar .sectionHeading {
+        font-size: 1.8rem;
+    }
+    #verticalBar .wrapper {
+        font-size: 1.5rem;
+        padding-left: 40px;
+        margin-bottom: 19px;
+    }
+    #verticalBar .wrapper input {
+        top: 6px;
+        left: 0;
+        height: 1.5rem;
+        width: 1.5rem;
+        cursor: pointer;
+    }
+    #verticalBar .checkmark {
+        top: 6px;
+        left: 0;
+        height: 1.5rem;
+        width: 1.5rem;
+        border-radius: 4px;
+    }
+    #verticalBar .wrapper .checkmark::after {
+        left: 7px;
+        top: 1.5px;
+        width: 9px;
+        height: 16px;
+        border-width: 0 3.5px 3.5px 0;
+    }
+    #verticalBar button {
+        display: inline-block;
+        font-size: 1.5rem;
+    }
+    #cards {
+        padding: 16px 16px 48px 16px;
+    }
+    #cards > div {
+        padding: 16px;
+    }
+    #cards a > div {
+        height: 409px;
+        border-radius: 0.38rem;
+    }
+    .fullStar, #cards .emptyStar, #cards .notRated {
+        font-size: 1.5rem;
+    }
+    #cards .ratings {
+        font-size: 1.28rem;
+    }
+    #cards .productName, .productNewPrice {
+        font-size: 1.8rem;
+    }
+    #cards .productOldPrice {
+        font-size: 1.5rem;
+    }
+}
+@media only screen and (max-width: 575px) {
+    #verticalBar .sectionHeading {
+        font-size: 5.4vw;
+    }
+    #verticalBar .wrapper {
+        font-size: 4.5vw;
+        padding-left: 7.52vw;
+        margin-bottom: 3.57vw;
+    }
+    #verticalBar .wrapper input {
+        top: 1.13vw;
+        left: 0;
+        height: 4.5vw;
+        width: 4.5vw;
+        cursor: pointer;
+    }
+    #verticalBar .checkmark {
+        top: 1.13vw;
+        left: 0;
+        height: 4.5vw;
+        width: 4.5vw;
+        border-radius: 0.75vw;
+    }
+    #verticalBar .wrapper .checkmark::after {
+        left: 1.32vw;
+        top: 0.28vw;
+        width: 1.69vw;
+        height: 3vw;
+        border-width: 0 0.66vw 0.66vw 0;
+    }
+    #verticalBar button {
+        display: inline-block;
+        font-size: 4.5vw;
+    }
+    #cards a > div {
+        height: 95vw;
+        border-radius: 1.13vw;
+    }
+    #cards .productImageDiv {
+        width: 51vw; 
+        height: 61.5vw;
+    }
+    .fullStar, #cards .emptyStar, #cards .notRated {
+        font-size: 4.5vw;
+    }
+    #cards .ratings {
+        font-size: 3.83vw;
+    }
+    #cards .productName, .productNewPrice, .productOldPrice {
+        font-size: 5.4vw;
+    }
+    #cards .productOldPrice {
+        font-size: 4.5vw;
+    }
+}
+
+/* details */
+.detailsAvatar {
+    width: 80px; 
+    border-radius: 50%;
+}
+@media only screen and (max-width: 767px) {
+    .detailsImage {
+        height: 100vw; 
+        width: 72vw;
+    }
+    .detailsH3 {
+        font-size: 2.3rem;
+    }
+    .detailsH5 {
+        font-size: 1.8rem;
+    }
+    .detailsP {
+        font-size: 1.5rem;
+    }
+}
+@media only screen and (max-width: 575px) {
+    .detailsH3 {
+        font-size: 6.9vw;
+    }
+    .detailsH5 {
+        font-size: 5.4vw;
+    }
+    .detailsP {
+        font-size: 4.5vw;
+    }
+}
+
+/**************
+FRITZ
+*************/
+
+.portalnav {
+    /* background: rgb(23, 203, 134); */
+    background: #343a40;
+    color: white;
+}
+
+.btn-kommerz {
+    background: rgb(23, 203, 134);
+    color: white;
+}
+
+.btn-kommerz:hover {
+    background: rgb(23, 189, 125);
+    color: white;
+}
+
+.text-kommerz {
+    color:  rgb(23, 203, 134);
+}
+
+.text-kommerz:hover {
+    color:  rgb(23, 203, 134);
+}
+
+.banned {
+    position: absolute;
+    padding: 2em;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    display: flex;
+}
+
+.banned > h1 {
+    margin: auto;
+    color: red;
+    font-size: 5em;
+    /* background: rgba(23, 203, 134, 0.762); */
+    background: #343a40;
+}
+
+.review .rating, .review .title {
+    /* font-size: 1.3em; */
+}
+.fullStar {
+    color: rgb(255, 199, 57);
+}
+
+.emptyStar {
+    color: rgb(186, 186, 186);
+}
+.ratings {
+    font-size: 0.85rem;
+}
+.notRated {
+    visibility: hidden;
+}
+
+
+/************
+Maps
+***********/
+
+#map {
+    height: 500px;
+}
+
+
+/********
+Detail Styles
+**********/
+
+.pricing-detail {
+    font-size: 1.5em;
+}
+
+.pricing-detail a.btn {
+    font-size: 1.5rem;
+}
