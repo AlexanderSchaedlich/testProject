@@ -22,3 +22,50 @@ function checkStorageAvailability(type) {
             (storage && storage.length !== 0);
     }
 }
+function writeCards(id, products) {
+    $("#" + id + "").empty();
+    for (let product of products) {
+        if (product["old_price"] == "") {
+            product["old_price"] = 0;
+        }
+        $("#" + id + "").append(`
+            <div class="col-sm-6 col-lg-3">
+                <a href="${myPath}sessions/common/details.php?category=${product['category']}&id=${product['id']}">
+                    <div class="py-4 px-3 py-sm-3 px-sm-2 p-md-2 bg-white text-center">
+                        <div class="productImageDiv">
+                            <img src="${product['img']}" alt="${product['name']}" class="fittingImage">
+                        </div>
+                        <p class="myH5 mt-2 mb-0">${product['name']}</p>
+                        <span class="myH5 my-0 mr-2">${createCurrencyFormat(parseFloat(product['new_price']))}</span>
+                        <span class="myP my-0"><s>${createCurrencyFormat(parseFloat(product['old_price']))}</s></span>
+                        <div>
+                            <span>${createStars(product['stars'])}</span>
+                            <span class="ratings">${product['ratings']}</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        `);
+    }
+}
+function createCurrencyFormat(numericString) {
+    if (numericString != 0) {
+        return new Intl.NumberFormat("de-DE", {style: "currency", currency: "EUR"}).format(numericString);
+    } else {
+        return "";
+    }
+}
+function createStars(integer) {
+    let result = '';
+    if (integer > 0) {
+        for (let i = 0; i < integer; i++) {
+            result += '<span class="fullStar myP">&starf;</span>';
+        }
+        for (i = 0; i < 5 - integer; i++) {
+            result += '<span class="emptyStar myP">&star;</span>';
+        }
+    } else {
+        result = '<span class="notRated myP">not rated</span>';
+    }
+    return result;
+}

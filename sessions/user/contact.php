@@ -1,13 +1,13 @@
 <?php 
   ob_start();
   session_start();
+  require_once(__DIR__ . "/../../services/database_connection.php");
 
-var_dump($_POST);
   $error = false;
   if ($_POST) {
-    $name = $_POST['name'];
-    $email = $_POST['email'];
-    $topic = $_POST['topic'];
+    $name = $_POST["name"];
+    $email = $_POST["email"];
+    $topic = $_POST["topic"];
     $message = "Email from: {$name} {$email}\r\n\r\n" . $_POST['message'];
     if (empty($name)) {
       $error = true;
@@ -25,11 +25,11 @@ var_dump($_POST);
       $error = true;
       $messageError = "Please enter a message.";
     }
-    if (!$error){
+    if (! $error){
       $recipient = "weareteamcoffee@gmail.com";
       $from = "From: Contact Form";
       mail($recipient, $topic, $message, $from);
-      $success = 'Sent successfully!';
+      $success = "Sent successfully!";
     }
   }
 ?>
@@ -37,24 +37,12 @@ var_dump($_POST);
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Coffee Smartphones</title>
-  <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
-  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <link rel="stylesheet" type="text/css" href="css/style.css">
-  <script
-  src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-  integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
-  crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js" integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm" crossorigin="anonymous"></script>
-  <script src="https://kit.fontawesome.com/4d20ff7212.js" crossorigin="anonymous"></script>
+  <!-- head tags -->
+  <?php include "../../view/head.php" ?>
 </head>
 <body>
   <!-- navbar -->
-  <?php include 'parts/navbar.php'; ?>
+  <?php include "../../view/navbar.php" ?>
 
   <!-- content -->
   <main>
@@ -107,23 +95,23 @@ var_dump($_POST);
   </main>
 
   <!-- footer -->
-  <?php include 'parts/footer.php'; ?>
+  <?php "../../view/footer.php" ?>
 
   <!-- google api -->
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBtjaD-saUZQ47PbxigOg25cvuO6_SuX3M&callback=initMap"
   async defer></script>
   <script>
-    var map;
+    let map;
     function initMap() {
-      var ourLocation = {
+      let ourLocation = {
         lat: 48.209478,
         lng: 16.369461
       };
-      map = new google.maps.Map(document.getElementById('map'), {
+      map = new google.maps.Map(document.getElementById("map"), {
         center: ourLocation,
         zoom: 18
       });
-      var pinpoint = new google.maps.Marker({
+      let pinpoint = new google.maps.Marker({
         position: ourLocation,
         map: map
       });
@@ -132,4 +120,4 @@ var_dump($_POST);
 </body>
 </html>
 
-<?php ob_end_flush(); ?>
+<?php ob_end_flush() ?>

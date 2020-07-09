@@ -1,16 +1,21 @@
 <?php
 	ob_start();
 	session_start();
-	require_once 'actions/db-connect.php';
-	include 'functions.php';
-	include 'handle_buttons.php';
-	include 'new_handle_products.php';
+	require_once(__DIR__ . "/../../services/database_connection.php");
+	include(__DIR__ . "/../../services/main.php");
+	include(__DIR__ . "/../../services/handle_buttons.php");
+	include(__DIR__ . "/../../services/new_handle_products.php");
+	echo "
+		<script>
+			let myPath = " . json_encode($myPath) . ";
+		</script>
+	";
 
-	if ($_GET['category'] && $_GET['id']) {
-		$category = $_GET['category'];
-		$id = $_GET['id'];
+	if ($_GET["category"] && $_GET["id"]) {
+		$category = $_GET["category"];
+		$id = $_GET["id"];
 		for ($i = 0; $i < count($products); $i++) {
-			if ($products[$i]['category'] == $category && $products[$i]['id'] == $id) {
+			if ($products[$i]["category"] == $category && $products[$i]["id"] == $id) {
 				$product = $products[$i];
 				echo "
 					<script>
@@ -20,57 +25,20 @@
 			}
 		}
 	}
-	// var_dump($_SESSION["cart"]);
-	if (isset($_SESSION["test"])) {
-		var_dump($_SESSION["test"]);
-	}
 ?>
 
 <!DOCTYPE html>
 <html lang="de">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coffee Smartphones</title>
-    <!-- favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
-    <!-- font -->
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- fontawesome -->
-    <script src="https://kit.fontawesome.com/4d20ff7212.js" crossorigin="anonymous"></script>
-    <!-- jquery -->
-	<script
-	src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-	integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
-	crossorigin="anonymous"></script>
-    <!-- bootstrap -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js" integrity="sha384-1CmrxMRARb6aLqgBO7yyAxTOQE2AKb9GfXnEo760AUcUmFx3ibVJJAzGytlQcNXd" crossorigin="anonymous"></script>
-    <!-- css -->
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('.myButton').click(function() {
-			    $.ajax({
-			        url: "/FullStackProject/fs01-project5-common/alex1/parts/add_product.php",
-			        type: "POST",
-			        data: {
-			            product: product
-			        },
-			        success: function(response){
-			        	$("#totalItems").empty();
-			        	$("#totalItems").append(response);
-			        }
-			    });
-			});
-        });
-    </script> -->
+	<!-- head tags -->
+	<?php include(__DIR__ . "/../../view/head.php") ?>
 </head>
 <body>
 	<!-- navbar -->
-	<?php include 'parts/navbar.php'; ?>
+	<?php include(__DIR__ . "/../../view/navbar.php") ?>
+	<div id="test">
+		
+	</div>
 <?php  
 	if (isset($product)) {
 ?>
@@ -239,8 +207,8 @@
 	$sql = "select review.id, review.title, review.text_area, review.stars, review.creation_date, user.name, user.email from review
 	join user on fk_user = user.id
 	where fk_{$category} = {$id}";
-	$result = $conn->query($sql);
-	$conn->close();
+	$result = $connection->query($sql);
+	$connection->close();
 	if ($result->num_rows > 0) {
 ?>
 			<!-- reviews -->
@@ -284,19 +252,17 @@
 	}
 ?>
 	<!-- footer -->
-	<?php include 'parts/footer.php'; ?>
+	<?php include(__DIR__ . "/../../view/footer.php") ?>
 
 	<!-- hidden form -->
-	<form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
+	<!-- <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">
 		<input type="hidden" name="cart" value="1">
-	</form>
+	</form> -->
 
 	<!-- scripts -->
-	<script src="js/main.js"></script>
-	<script src="js/details.js"></script>
-
-	<script src="js/ajax.js"></script>
+	<script src="../../js/details.js"></script>
+	<script src="../../ajax/details.js"></script>
 </body>
 </html>
 
-<?php ob_end_flush(); ?>
+<?php ob_end_flush() ?>

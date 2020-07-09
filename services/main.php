@@ -1,4 +1,5 @@
 <?php 
+    // error_reporting(0); // stops all error reporting
     function escape($string) {
         return htmlentities($string, ENT_QUOTES); // searches for applicable characters in the user input and prevents them from being applied as they may be part of malicious code; converts both single and double quotes
     }
@@ -15,7 +16,7 @@
      * @source https://gravatar.com/site/implement/images/php/
      */
     function getGravatar($email, $size = 160, $default = 'mp', $rating = 'g', $image = false, $attributes = array()) {
-        $url = 'https://www.gravatar.com/avatar/';
+        $url = "https://www.gravatar.com/avatar/";
         $url .= md5(strtolower(trim($email))); // md5 hashing algorithm
         $url .= "?s={$size}&d={$default}&r={$rating}";
         if ($image) {
@@ -29,7 +30,7 @@
     }
     function createCurrencyFormat($numericString) {
         if ($numericString != 0) {
-            $formatter = new NumberFormatter('de_DE', NumberFormatter::CURRENCY);
+            $formatter = new NumberFormatter("de_DE", NumberFormatter::CURRENCY);
             return $formatter->formatCurrency($numericString, "EUR");
         } else {
             return "";

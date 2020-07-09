@@ -3,7 +3,7 @@ let filteringCriteria = {};
 let font = parseFloat(getComputedStyle(document.documentElement).fontSize);
 let currentWidth;
 let storageIsAvailable;
-if (checkStorageAvailability('sessionStorage')) {
+if (checkStorageAvailability("sessionStorage")) {
     storageIsAvailable = true;
 } else {
     storageIsAvailable = false;
@@ -44,8 +44,8 @@ function writeBar(criteria) {
 			showItems += "Show " + filteredProducts.length.toString() + " items";
 			break;
 	}
-	$("#filteredProductsItems").empty();
-	$("#filteredProductsItems").append(items);
+	$("#filteredItems").empty();
+	$("#filteredItems").append(items);
 	$("#verticalBar button").empty();
 	$("#verticalBar button").append(showItems);
 	$("#criteriaBar").empty();
@@ -66,20 +66,21 @@ function removeCriterion(string) {
 	$("input[value = " + string + "]").trigger("click");
 }
 function checkLineBreak() {
+	let criteriaBar = document.getElementById("criteriaBar");
 	let appliedCriteria = document.getElementsByClassName("criterion");
-	for (criterion of appliedCriteria) {
-		if (criterion.offsetHeight > 1.65 * font) {
-			criterion.prepend(document.createElement("br"));
-		} 
+	for (let i = 0; i < appliedCriteria.length; i++) {
+		if (appliedCriteria[i].offsetHeight > 2 * font) {
+			criteriaBar.insertBefore(document.createElement("br"), appliedCriteria[i]);
+		}
 	}
 }
 function checkOverflow() {
 	let criteriaBar = document.getElementById("criteriaBar");
 	let criteriaButton = document.getElementById("criteriaButton");
-	if (criteriaBar.scrollHeight >= 2 * criteriaBar.offsetHeight) {
+	if (criteriaBar.scrollHeight > criteriaBar.offsetHeight) {
 		criteriaButton.style.visibility = "visible";
 	} else {
-		if (criteriaBar.offsetHeight >= 2 * 1.65 * font) {
+		if (criteriaBar.offsetHeight > 3 * font) {
 			criteriaButton.style.visibility = "visible";
 		} else {
 			criteriaButton.style.visibility = "hidden";
@@ -89,66 +90,22 @@ function checkOverflow() {
 function sortProducts(attribute, order) {
 	filteredProducts.sort(function(a, b) {
 		switch (attribute) {
-			case 'new_price':
-				if (order == 'ascending') {
+			case "new_price":
+				if (order == "ascending") {
 					return a[attribute] - b[attribute]; // swaps the elements if the returned value is less than zero
 				} else {
 					return b[attribute] - a[attribute];
 				}
 				break;
-			case 'adding_date':
+			case "adding_date":
 				return new Date(b[attribute]) - new Date(a[attribute]);
 				break;
-			case 'stars':
+			case "stars":
 				return b[attribute] - a[attribute];
 				break;
 		}
 	});
-	writeCards();
-}
-function writeCards() {
-	$("#cards").empty();
-	for (let product of filteredProducts) {
-		$("#cards").append(`
-			<div class="col-sm-6 col-lg-3">
-				<a href="details.php?category=${product['category']}&&id=${product['id']}">
-					<div class="py-4 px-3 py-sm-3 px-sm-2 p-md-2 bg-white text-center">
-						<div class="productImageDiv">
-							<img src="${product['img']}" alt="${product['name']}" class="fittingImage">
-						</div>
-						<p class="productName mt-2 mb-0">${product['name']}</p>
-						<span class="productNewPrice my-0 mr-2">${createCurrencyFormat(product['new_price'])}</span>
-						<span class="productOldPrice my-0"><s>${createCurrencyFormat(product['old_price'])}</s></span>
-						<div>
-							<span>${createStars(product['stars'])}</span>
-							<span class="ratings">${product['ratings']}</span>
-						</div>
-					</div>
-				</a>
-			</div>
-		`);
-	}
-}
-function createCurrencyFormat(numericString) {
-    if (numericString != 0) {
-        return new Intl.NumberFormat("de-DE", {style: "currency", currency: "EUR"}).format(numericString);
-    } else {
-        return "";
-    }
-}
-function createStars(integer) {
-    let result = '';
-    if (integer > 0) {
-        for (let i = 0; i < integer; i++) {
-            result += '<span class="fullStar">&starf;</span>';
-        }
-        for (i = 0; i < 5 - integer; i++) {
-            result += '<span class="emptyStar">&star;</span>';
-        }
-    } else {
-        result = '<span class="notRated">not rated</span>';
-    }
-    return result;
+	writeCards("cards", filteredProducts); // function in the main.js file
 }
 
 // if the storage is available, get the current filtering criteria from there
@@ -208,7 +165,7 @@ $(document).ready(function() {
 		sortProducts(sortingCriteria[0], sortingCriteria[1]);
 	});
 
-	// show and hide filter criteria in the horizontal bar
+	// show and hide filtering criteria in the horizontal bar
 	$("#criteriaButton .less").hide();
 	$("#criteriaButton").on("click", function() {
 		$(this).find(".more, .less").toggle();
@@ -216,7 +173,7 @@ $(document).ready(function() {
 		if ($(this).hasClass("expand")) {
 			$("#criteriaBar").css("height", "auto");
 		} else {
-			$("#criteriaBar").css("height", "1.65rem");
+			$("#criteriaBar").css("height", "2.1rem");
 		}
 		checkOverflow();
 	});
@@ -238,18 +195,18 @@ $(document).ready(function() {
 		observeWidth();
 	});
 	function listenToClick() {
-		$("#filterBar").off('click');
+		$("#filterBar").off("click");
 		$(".clickable").on("click", function() {
 			$(this).toggleClass("showVerticalBar");
 			toggleVerticalBar();
 		});
-		$("#verticalBar button").off('click').on("click", function() {
+		$("#verticalBar button").off("click").on("click", function() {
 			$("#filterBar").removeClass("showVerticalBar");
 			toggleVerticalBar();
 		});
 	}
 	function toggleVerticalBar() {
-		if ($("#filterBar").hasClass('showVerticalBar')) {
+		if ($("#filterBar").hasClass("showVerticalBar")) {
 			$("#filterBar").css("width", "100%");
 			$("#filterBar span:nth-child(4)").show();
 			$("#filterBar hr").hide();

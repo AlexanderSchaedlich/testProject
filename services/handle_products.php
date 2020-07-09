@@ -1,5 +1,5 @@
 <?php
-	require_once 'actions/db-connect.php';
+	require_once '../../actions/db-connect.php';
 
     $sql = "select * from product where amount_available > 0 and visible = 1";
 	$result = $conn->query($sql);

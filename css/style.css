@@ -63,9 +63,6 @@ body {
         height: 50px;
         margin-bottom: 18px;
     }
-    #navbar .navbar-brand span {
-        font-size: 1.5rem;
-    }
     #navbar > #navbarNav {
         font-size: 1.33rem;
     }
@@ -75,9 +72,6 @@ body {
         height: 9.4vw;
         margin-bottom: 3.38vw;
     }
-    #navbar .navbar-brand span {
-        font-size: 4.5vw;
-    }
     #navbar > #navbarNav {
         font-size: 4vw;
     }
@@ -86,13 +80,11 @@ body {
     }
 }
 
-/* home */
+/* home and products */
 #homeHero .heroItem {
     width: 100%; 
     height: 41vw;
 }
-
-/* product */
 #productHero {
     width: 100%;
     height: 31vw;
@@ -105,7 +97,7 @@ body {
     font-size: 1.2rem;
 }
 #horizontalBar > div {
-    padding: 10px 16px 4px 16px;
+    padding: 10px 16px 0 16px;
 }
 #horizontalBar #filterBar {
     display: inline-block; 
@@ -121,12 +113,13 @@ body {
 }
 #horizontalBar #criteriaBar {
     display: inline-block; 
-    height: 1.65rem; 
+    height: 2.1rem; 
     overflow: hidden;
 }
 #horizontalBar #criteriaBar .criterion {
     height: 1.65rem;
     font-size: 1rem;
+    line-height: 2rem;
 }
 #horizontalBar #criteriaBar .criterion span:nth-child(2) {
     cursor: pointer;
@@ -137,6 +130,7 @@ body {
     width: 63px; 
     height: 1.65rem; 
     overflow: hidden;
+    line-height: 1.9rem;
 }
 #horizontalBar #criteriaButton span {
     font-size: 1rem; 
@@ -286,39 +280,36 @@ body {
 #verticalBar + main {
     flex: 6;
 }
-#cards {
-    padding: 8px 8px 48px 8px;
+.cards {
+    padding: 8px 8px 0 8px;
 }
-#cards > div {
+.cards > div {
     padding: 8px;
 }
-#cards a {
+.cards a {
     text-decoration: none; 
     color: black;
 }
-#cards a > div {
+.cards a > div {
     margin: auto; 
     border-radius: 0.25rem;
     box-shadow: 0 3px 4px 0 lightgrey;
 }
-#cards .productImageDiv {
+.productImageDiv {
     width: 170px; 
     height: 205px; 
     margin: auto;
 }
-#cards .productName, .productNewPrice {
-    font-size: 1.2rem;
-}
-#cards .fullStar {
+.cards .fullStar {
     color: rgb(255, 199, 57);
 }
-#cards .emptyStar {
+.cards .emptyStar {
     color: rgb(186, 186, 186);
 }
-#cards .ratings {
+.cards .ratings {
     font-size: 0.85rem;
 }
-#cards .notRated {
+.cards .notRated {
     visibility: hidden;
 }
 @media only screen and (max-width: 991px) {
@@ -330,11 +321,7 @@ body {
     #verticalBar {
         display: none;
     }
-    #verticalBar .sectionHeading {
-        font-size: 1.8rem;
-    }
     #verticalBar .wrapper {
-        font-size: 1.5rem;
         padding-left: 40px;
         margin-bottom: 19px;
     }
@@ -361,37 +348,23 @@ body {
     }
     #verticalBar button {
         display: inline-block;
-        font-size: 1.5rem;
     }
-    #cards {
-        padding: 16px 16px 48px 16px;
+    .cards {
+        padding: 16px 16px 0 16px;
     }
-    #cards > div {
+    .cards > div {
         padding: 16px;
     }
-    #cards a > div {
+    .cards a > div {
         height: 409px;
         border-radius: 0.38rem;
     }
-    .fullStar, #cards .emptyStar, #cards .notRated {
-        font-size: 1.5rem;
-    }
-    #cards .ratings {
+    .cards .ratings {
         font-size: 1.28rem;
-    }
-    #cards .productName, .productNewPrice {
-        font-size: 1.8rem;
-    }
-    #cards .productOldPrice {
-        font-size: 1.5rem;
     }
 }
 @media only screen and (max-width: 575px) {
-    #verticalBar .sectionHeading {
-        font-size: 5.4vw;
-    }
     #verticalBar .wrapper {
-        font-size: 4.5vw;
         padding-left: 7.52vw;
         margin-bottom: 3.57vw;
     }
@@ -418,27 +391,17 @@ body {
     }
     #verticalBar button {
         display: inline-block;
-        font-size: 4.5vw;
     }
-    #cards a > div {
+    .cards a > div {
         height: 95vw;
         border-radius: 1.13vw;
     }
-    #cards .productImageDiv {
+    .productImageDiv {
         width: 51vw; 
         height: 61.5vw;
     }
-    .fullStar, #cards .emptyStar, #cards .notRated {
-        font-size: 4.5vw;
-    }
-    #cards .ratings {
+    .cards .ratings {
         font-size: 3.83vw;
-    }
-    #cards .productName, .productNewPrice, .productOldPrice {
-        font-size: 5.4vw;
-    }
-    #cards .productOldPrice {
-        font-size: 4.5vw;
     }
 }
 
@@ -452,28 +415,37 @@ body {
         height: 100vw; 
         width: 72vw;
     }
-    .detailsH3 {
+    .myH3 {
         font-size: 2.3rem;
     }
-    .detailsH5 {
+    .myH5 {
         font-size: 1.8rem;
     }
-    .detailsP {
+    .myP {
         font-size: 1.5rem;
     }
 }
 @media only screen and (max-width: 575px) {
-    .detailsH3 {
+    .myH3 {
         font-size: 6.9vw;
     }
-    .detailsH5 {
+    .myH5 {
         font-size: 5.4vw;
     }
-    .detailsP {
+    .myP {
         font-size: 4.5vw;
     }
 }
 
+/* faq */
+.fa-chevron-down {
+    transform: rotate(0deg);
+    transition: all 0.5s;
+}
+.fa-chevron-down.open {
+    transform: rotate(180deg);
+    transition: all 0.5s;
+}
 /**************
 FRITZ
 *************/

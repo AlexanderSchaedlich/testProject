@@ -1,18 +1,18 @@
 <?php
     ob_start();
     session_start();
-    require_once 'actions/db-connect.php';
-    include "functions.php";
+    require_once(__DIR__ . "/../../services/database_connection.php");
+    include(__DIR__ . "/../../services/main.php");
 
-    if (isset($_SESSION['user']) || isset($_SESSION['admin'])) {
+    if (isset($_SESSION["user"]) || isset($_SESSION["admin"])) {
         header("Location: index.php");
     }
 
     $error = false;
-    if (isset($_POST['sign_up'])) {
-        $name = $_POST['name'];
-        $email = $_POST['email'];
-        $password = $_POST['password'];
+    if (isset($_POST["sign_up"])) {
+        $name = $_POST["name"];
+        $email = $_POST["email"];
+        $password = $_POST["password"];
 
         // sanitize input to prevent sql injection
         function sanitize($string) {
@@ -22,6 +22,7 @@
             $string = escape($string);
             return $string;
         }
+        $name = sanitize($name);
         $email = sanitize($email);
         $password = sanitize($password);
 
@@ -32,19 +33,16 @@
         } elseif (strlen($name) < 3) {
             $error = true;
             $nameError = "Name must have at least 3 characters.";
-        } elseif (!preg_match("/^[a-zA-Z\s]+$/",$name)) {
-            $error = true;
-            $nameError = "Name must contain only letters and whitespace.";
         }
         if (empty($email)) {
             $error = true;
             $emailError = "Please enter your email adress.";
-        } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        } elseif (! filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $error = true;
             $emailError = "Please enter a valid email address.";
         } else {
             $sql = "select `email` from `user` where `email` = '$email'";
-            $result = $conn->query($sql);
+            $result = $connection->query($sql);
             if ($result->num_rows != 0) {
                 $error = true;
                 $emailError = "Provided email is already in use.";
@@ -60,9 +58,9 @@
         $password = password_hash($password, PASSWORD_DEFAULT);
 
         // create a database entry
-        if (!$error) {
-            $sql = "insert into `user` (name, email, password) values ('$name', '$email', '$password')";
-            $run = $conn->query($sql);
+        if (! $error) {
+            $sql = "insert into `user` (name, email, password) values ('{$name}', '{$email}', '{$password}')";
+            $run = $connection->query($sql);
             if ($run) {
                 $message = "Signed up successfully, you may log in now.";
                 $messageColor = "success";
@@ -80,24 +78,12 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coffee Smartphones</title>
-    <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <script
-    src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-    integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8="
-    crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js" integrity="sha384-6khuMg9gaYr5AxOqhkVIODVIvm9ynTT5J4V1cfthmT+emCG6yVmEZsRHdxlotUnm" crossorigin="anonymous"></script>
-    <script src="https://kit.fontawesome.com/4d20ff7212.js" crossorigin="anonymous"></script>
+    <!-- head tags -->
+    <?php include(__DIR__ . "/../../view/head.php") ?>
 </head>
-<body>
+<body class="d-flex flex-column justify-content-between min-vh-100">
     <!-- navbar -->
-    <?php include 'parts/navbar.php'; ?>
+    <?php include(__DIR__ . "/../../view/navbar.php") ?>
 
     <!-- content -->
     <main>
@@ -106,7 +92,7 @@
 <?php 
     if (isset($message)) {
         echo '
-            <div class="alert alert-' .$messageColor. '">' .$message. '</div>
+            <div class="alert alert-' . $messageColor . '">' . $message . '</div>
         ';
     }
 ?>
@@ -117,7 +103,7 @@
 <?php 
     if (isset($nameError)) {
         echo '
-                        <div class="text-danger">' .$nameError. '</div>
+                        <div class="text-danger">' . $nameError . '</div>
         ';
     }
 ?>
@@ -125,7 +111,7 @@
 <?php 
     if (isset($name)) {
         echo '
-                        value="' .$name. '"
+                        value="' . $name . '"
         ';
     }
 ?>
@@ -134,7 +120,7 @@
 <?php 
     if (isset($emailError)) {
         echo '
-                        <div class="text-danger">' .$emailError. '</div>
+                        <div class="text-danger">' . $emailError . '</div>
         ';
     }
 ?>
@@ -142,7 +128,7 @@
 <?php 
     if (isset($email)) {
         echo '
-                        value="' .$email. '"
+                        value="' . $email . '"
         ';
     }
 ?>
@@ -151,7 +137,7 @@
 <?php 
     if (isset($passwordError)) {
         echo '
-                        <div class="text-danger">' .$passwordError. '</div>
+                        <div class="text-danger">' . $passwordError . '</div>
         ';
     }
 ?>
@@ -166,8 +152,8 @@
     </main>
 
     <!-- footer -->
-    <?php include 'parts/footer.php'; ?>
+    <?php include(__DIR__ . "/../../view/footer.php") ?>
 </body>
 </html>
 
-<?php ob_end_flush(); ?>
+<?php ob_end_flush() ?>
